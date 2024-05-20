@@ -5,7 +5,7 @@ const ButtonEx = () => {
 <View
       style={{
         flex: 1,
-        backgroundColor: "white",
+        backgroundColor: "black",
         justifyContent: "center",
         alignItems: "flex-end",
         flexDirection: "row",
@@ -15,8 +15,8 @@ const ButtonEx = () => {
       <View
         style={{
           flex: 1,
-          backgroundColor: "red",
-          width: 10000,
+          backgroundColor: "orange",
+          width: 50,
           height: 60,
           borderRadius: 10,
           marginRight: 10,
@@ -38,7 +38,7 @@ const ButtonEx = () => {
       <View
         style={{
           flex: 1,
-          backgroundColor: "green",
+          backgroundColor: '#47C7FC',
           width: 50,
           height: 60,
           borderRadius: 10,
@@ -46,6 +46,7 @@ const ButtonEx = () => {
           marginRight: 10,
         }}
       >
+
         <Text
           style={{
             color: "white",
