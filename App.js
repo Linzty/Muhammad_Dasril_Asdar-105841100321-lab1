@@ -6,7 +6,9 @@ import Title from "./Title";
 
 export default function App() {
   return (
+    <>
     <ButtonEx></ButtonEx>
     <Title></Title>
+    </>
   );
 }
