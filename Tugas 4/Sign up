@@ -15,7 +15,7 @@ const App = () => {
         justifyContent: 'center',
         width: 250,
         height: 100,
-        top: 20,
+        top: 20, 
         resizeMode: 'contain',
       }} />
 
@@ -28,7 +28,7 @@ const App = () => {
         textAlign: 'left',
         width: '80%',
       }}>
-        Login
+        Sign Up
       </Text>
 
       <View style={{
@@ -42,7 +42,7 @@ const App = () => {
           color: 'black',
           alignSelf: 'flex-end',
           marginRight: 10,
-        }}>Forgot your password?</Text>
+        }}>Already have an account?</Text>
       </View>
 
       <View style={{
@@ -64,8 +64,8 @@ const App = () => {
         justifyContent: 'center',
         marginBottom: 40,
       }}>
-        <AnotherLoginOption logo='https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg' />
-        <AnotherLoginOption logo='https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg' />
+        <AnotherLoginOption logo={require('./assets/Google.png')} />
+        <AnotherLoginOption logo={require('./assets/Facebook.png')} />
       </View>
     </View>
   );
@@ -121,8 +121,8 @@ const FormInput = ({ placeholder, secureTextEntry, keyboardType }) => {
 const AnotherLoginOption = ({ logo }) => {
   return (
     <Image
-      source={{ uri: logo }}
-      style={{ width: 50, height: 50, marginHorizontal: 20 }}
+      source={logo}
+      style={{ width: 50, height: 50, marginHorizontal: 20, resizeMode: 'contain', }}
     />
   );
 };

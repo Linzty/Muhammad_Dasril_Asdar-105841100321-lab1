@@ -11,7 +11,7 @@ export default function App() {
       <View style={styles.logoContainer}>
         <Image source={require('./assets/Logo.png')} style={styles.logo} />
       </View>
-      <ButtonEx />
+      <ButtonComponent />
       <StatusBar style="auto" />
     </View>
   );

@@ -15,7 +15,7 @@ const App = () => {
         justifyContent: 'center',
         width: 250,
         height: 100,
-        top: 20,
+        top: 20, 
         resizeMode: 'contain',
       }} />
 
@@ -23,26 +23,26 @@ const App = () => {
         fontSize: 32,
         fontWeight: 'bold',
         marginBottom: 30,
-        marginTop: 20,
+        
         color: 'black',
         textAlign: 'left',
-        width: '80%',
+        width: '90%',
       }}>
-        Login
+        Forgot Password
       </Text>
 
       <View style={{
         justifyContent: 'center',
         marginBottom: 50,
       }}>
-        <FormInput placeholder="Full Name" />
-        <FormInput placeholder="Email" keyboardType="email-address" />
-        <FormInput placeholder="Password" secureTextEntry />
         <Text style={{
           color: 'black',
-          alignSelf: 'flex-end',
-          marginRight: 10,
-        }}>Forgot your password?</Text>
+          textAlign: 'left',
+          width: '90%',
+          bottom: 10,
+        }}>Please, enter your email address.{"\n"}
+         You will receive a link to create a new password via email.</Text>
+        <FormInput placeholder="Email" keyboardType="email-address" />
       </View>
 
       <View style={{
@@ -50,23 +50,9 @@ const App = () => {
         justifyContent: 'center',
         marginBottom: 20,
       }}>
-        <ButtonComponent backgroundColor='black' text='Sign Up' />
+        <ButtonComponent backgroundColor='black' text='Send' />
       </View>
 
-      <Text style={{
-        color: 'black',
-        marginBottom: 8,
-      }}>Sign up with another account
-      </Text>
-
-      <View style={{
-        flexDirection: 'row',
-        justifyContent: 'center',
-        marginBottom: 40,
-      }}>
-        <AnotherLoginOption logo='https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg' />
-        <AnotherLoginOption logo='https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg' />
-      </View>
     </View>
   );
 };
@@ -121,8 +107,8 @@ const FormInput = ({ placeholder, secureTextEntry, keyboardType }) => {
 const AnotherLoginOption = ({ logo }) => {
   return (
     <Image
-      source={{ uri: logo }}
-      style={{ width: 50, height: 50, marginHorizontal: 20 }}
+      source={logo}
+      style={{ width: 50, height: 50, marginHorizontal: 20, resizeMode: 'contain', }}
     />
   );
 };
