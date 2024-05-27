@@ -35,7 +35,7 @@ const App = () => {
         justifyContent: 'center',
         marginBottom: 50,
       }}>
-        <FormInput placeholder="Full Name" />
+        
         <FormInput placeholder="Email" keyboardType="email-address" />
         <FormInput placeholder="Password" secureTextEntry />
         <Text style={{
