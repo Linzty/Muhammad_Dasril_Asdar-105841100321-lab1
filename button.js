@@ -23,15 +23,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-    marginBottom: height * -0.29, // Example using 15% of the screen height
+    marginBottom: height * -0.29, 
   },
   button: {
     flex: 1,
     backgroundColor: 'orange',
-    width: width * 0.4, // Example using 40% of the screen width
-    height: height * 0.08, // Example using 8% of the screen height
+    width: width * 0.4, 
+    height: height * 0.08, 
     borderRadius: 10,
-    marginHorizontal: width * 0.05, // Example using 5% of the screen width as margin
+    marginHorizontal: width * 0.05, 
     justifyContent: 'center',
     alignItems: 'center',
   },

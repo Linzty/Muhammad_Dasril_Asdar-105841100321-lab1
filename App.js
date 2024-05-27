@@ -1,28 +1,51 @@
+import { StyleSheet, Text, View, Image, Button } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context'; // Ensure this is installed and imported correctly
-import ButtonEx from './button';
 import Title from './Title';
 
-export default function App() {
+const ButtonCustom = () => {
   return (
-    <View style={styles.container}>
-      <Title />
-      <View style={styles.logoContainer}>
-        <Image source={require('./assets/Logo.png')} style={styles.logo} />
+      <View style={styles.container}>
+        <Title />
+        <View style={styles.logoContainer}>
+             <Image source={require('./assets/Logo.png')} style={styles.logo} />
+        </View>
+          <ButtonComponent backgroundColor='red' text='Login' />
+          <ButtonComponent backgroundColor='green' text='Register' />
       </View>
-      <ButtonEx />
-      <StatusBar style="auto" />
-    </View>
-  );
+  )
 }
+
+const ButtonComponent = ({ backgroundColor, text }) => {
+  return (
+      <View style={{
+          backgroundColor: backgroundColor,
+          width: 150,
+          height: 70,
+          borderRadius: 10,
+          marginTop: 30,
+          
+      }}>
+        <Text style={{
+          color: 'white',
+          textAlign: 'center',
+          lineHeight: 70,
+          fontSize: 25,
+          fontWeight: 'bold',
+        }}>
+          {text}
+        </Text>
+      </View>
+  )
+}
+
+export default ButtonCustom;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'black',
-    alignItems: 'center',
-    justifyContent: 'center',
+    
+
   },
   logoContainer: {
     marginTop: 100,
@@ -33,4 +56,5 @@ const styles = StyleSheet.create({
     width: 250,
     height: 100,
   },
+  
 });
