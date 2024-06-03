@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, TextInput, Image, TouchableOpacity } from 'react-native';
+import { useFonts } from 'expo-font'
 
 const App = () => {
   return (
@@ -126,5 +127,7 @@ const AnotherLoginOption = ({ logo }) => {
     />
   );
 };
+
+
 
 export default App;
