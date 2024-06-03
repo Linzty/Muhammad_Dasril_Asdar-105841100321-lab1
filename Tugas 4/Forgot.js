@@ -1,7 +1,18 @@
 import React from 'react';
 import { View, Text, TextInput, Image, TouchableOpacity } from 'react-native';
+import { useFonts } from 'expo-font';
 
 const App = () => {
+  const [fontsLoaded] = useFonts({
+    'Metro-Bold': require('./assets/fonts/Metropolis-Bold.otf'),
+    'Metro-Thin': require('./assets/fonts/Metropolis-Thin.otf'),
+    'Metro-Medium': require('./assets/fonts/Metropolis-Medium.otf'),
+    'Metro-Semibold': require('./assets/fonts/Metropolis-SemiBold.otf'),
+    'Metro-Black': require('./assets/fonts/Metropolis-Black.otf'),
+  });
+
+  if (!fontsLoaded) return <View><Text>Font tidak ditemukan!</Text></View>;
+
   return (
     <View style={{
       flex: 1,
@@ -23,10 +34,10 @@ const App = () => {
         fontSize: 32,
         fontWeight: 'bold',
         marginBottom: 30,
-        
         color: 'black',
         textAlign: 'left',
         width: '90%',
+        fontFamily: 'Metro-Black',
       }}>
         Forgot Password
       </Text>
@@ -36,12 +47,16 @@ const App = () => {
         marginBottom: 50,
       }}>
         <Text style={{
+          fontSize: 12,
           color: 'black',
           textAlign: 'left',
-          width: '90%',
+          
           bottom: 10,
-        }}>Please, enter your email address.{"\n"}
-         You will receive a link to create a new password via email.</Text>
+          fontFamily: 'Metro-Thin',
+        }}>
+          Please, enter your email address.{"\n"}
+          You will receive a link to create a new password via email.
+        </Text>
         <FormInput placeholder="Email" keyboardType="email-address" />
       </View>
 
@@ -52,7 +67,6 @@ const App = () => {
       }}>
         <ButtonComponent backgroundColor='black' text='Send' />
       </View>
-
     </View>
   );
 };
@@ -72,6 +86,7 @@ const ButtonComponent = ({ backgroundColor, text }) => {
         color: 'white',
         fontSize: 20,
         fontWeight: 'bold',
+        fontFamily: 'Metro-Semibold',
       }}>
         {text}
       </Text>
@@ -94,6 +109,7 @@ const FormInput = ({ placeholder, secureTextEntry, keyboardType }) => {
           borderRadius: 5,
           padding: 10,
           color: 'white',
+          fontFamily: 'Metro-Thin',
         }}
         placeholder={placeholder}
         placeholderTextColor="gray"
@@ -101,15 +117,6 @@ const FormInput = ({ placeholder, secureTextEntry, keyboardType }) => {
         keyboardType={keyboardType}
       />
     </View>
-  );
-};
-
-const AnotherLoginOption = ({ logo }) => {
-  return (
-    <Image
-      source={logo}
-      style={{ width: 50, height: 50, marginHorizontal: 20, resizeMode: 'contain', }}
-    />
   );
 };
 
