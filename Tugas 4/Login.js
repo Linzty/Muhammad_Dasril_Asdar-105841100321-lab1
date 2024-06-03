@@ -1,7 +1,18 @@
 import React from 'react';
 import { View, Text, TextInput, Image, TouchableOpacity } from 'react-native';
+import { useFonts } from 'expo-font';
 
 const App = () => {
+  const [fontsLoaded] = useFonts({
+    'Metro-Bold': require('./assets/fonts/Metropolis-Bold.otf'),
+    'Metro-Thin': require('./assets/fonts/Metropolis-Thin.otf'),
+    'Metro-Medium': require('./assets/fonts/Metropolis-Medium.otf'),
+    'Metro-Semibold': require('./assets/fonts/Metropolis-SemiBold.otf'),
+    'Metro-Black': require('./assets/fonts/Metropolis-Black.otf'),
+  });
+
+  if (!fontsLoaded) return <View><Text>Font tidak ditemukan!</Text></View>;
+
   return (
     <View style={{
       flex: 1,
@@ -27,6 +38,7 @@ const App = () => {
         color: 'black',
         textAlign: 'left',
         width: '80%',
+        fontFamily: 'Metro-Black',
       }}>
         Login
       </Text>
@@ -35,13 +47,13 @@ const App = () => {
         justifyContent: 'center',
         marginBottom: 50,
       }}>
-        
         <FormInput placeholder="Email" keyboardType="email-address" />
         <FormInput placeholder="Password" secureTextEntry />
         <Text style={{
           color: 'black',
           alignSelf: 'flex-end',
           marginRight: 10,
+          fontFamily: 'Metro-Thin',
         }}>Forgot your password?</Text>
       </View>
 
@@ -56,6 +68,7 @@ const App = () => {
       <Text style={{
         color: 'black',
         marginBottom: 8,
+        fontFamily: 'Metro-Thin',
       }}>Sign up with another account
       </Text>
 
@@ -86,6 +99,7 @@ const ButtonComponent = ({ backgroundColor, text }) => {
         color: 'white',
         fontSize: 20,
         fontWeight: 'bold',
+        fontFamily: 'Metro-Semibold',
       }}>
         {text}
       </Text>
@@ -108,6 +122,7 @@ const FormInput = ({ placeholder, secureTextEntry, keyboardType }) => {
           borderRadius: 5,
           padding: 10,
           color: 'white',
+          fontFamily: 'Metro-Thin',
         }}
         placeholder={placeholder}
         placeholderTextColor="gray"
