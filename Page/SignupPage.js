@@ -1,129 +1,121 @@
-import React from 'react';
-import { View, Text, TextInput, Image, TouchableOpacity } from 'react-native';
-import { useFonts } from 'expo-font';
+import React from "react";
+import { View, Text, TextInput, Image, TouchableOpacity, Dimensions } from "react-native";
+import { useFonts } from "expo-font";
 
-const SignupPage = () => {
+const { width, height } = Dimensions.get("window");
+
+const SignupPage = ({ navigation }) => {
   const [fontsLoaded] = useFonts({
-    'Metro-Bold': require('../assets/fonts/Metropolis-Bold.otf'),
-    'Metro-Thin': require('../assets/fonts/Metropolis-Thin.otf'),
-    'Metro-Medium': require('../assets/fonts/Metropolis-Medium.otf'),
-    'Metro-Semibold': require('../assets/fonts/Metropolis-SemiBold.otf'),
-    'Metro-Black': require('../assets/fonts/Metropolis-Black.otf'),
+    "Metro-Bold": require("../assets/fonts/Metropolis-Bold.otf"),
+    "Metro-Thin": require("../assets/fonts/Metropolis-Thin.otf"),
+    "Metro-Medium": require("../assets/fonts/Metropolis-Medium.otf"),
+    "Metro-Semibold": require("../assets/fonts/Metropolis-SemiBold.otf"),
+    "Metro-Black": require("../assets/fonts/Metropolis-Black.otf"),
   });
 
-  if (!fontsLoaded) return <View><Text>Font tidak ditemukan!</Text></View>;
+  if (!fontsLoaded)
+    return (
+      <View>
+        <Text>Font tidak ditemukan!</Text>
+      </View>
+    );
 
   return (
-    <View style={{
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: 'orange',
-    }}>
-      <Image source={require('../assets/logo.png')} style={{
-        position: 'absolute',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: 250,
-        height: 100,
-        top: 20, 
-        resizeMode: 'contain',
-      }} />
+    <View
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "orange",
+        paddingHorizontal: 20,
+      }}
+    >
+      <Image
+        source={require("../assets/logo.png")}
+        style={{
+          width: width * 0.6,
+          height: height * 0.2,
+          resizeMode: "contain",
+          marginBottom: 20,
+        }}
+      />
 
-      <Text style={{
-        fontSize: 32,
-        fontWeight: 'bold',
-        marginBottom: 30,
-        marginTop: 20,
-        color: 'black',
-        textAlign: 'left',
-        width: '80%',
-        fontFamily: 'Metro-Black',
-      }}>
+      <Text
+        style={{
+          fontSize: 32,
+          fontWeight: "bold",
+          marginBottom: 30,
+          color: "black",
+          textAlign: "left",
+          width: "100%",
+          fontFamily: "Metro-Black",
+        }}
+      >
         Sign Up
       </Text>
 
-      <View style={{
-        justifyContent: 'center',
-        marginBottom: 50,
-      }}>
+      <View style={{ width: "100%", marginBottom: 20 }}>
         <FormInput placeholder="Full Name" />
         <FormInput placeholder="Email" keyboardType="email-address" />
         <FormInput placeholder="Password" secureTextEntry />
-        <Text style={{
-          color: 'black',
-          alignSelf: 'flex-end',
-          marginRight: 10,
-          fontFamily: 'Metro-Thin',
-        }}>Already have an account?</Text>
+        <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+          <Text
+            style={{
+              color: "black",
+              alignSelf: "flex-end",
+              marginTop: 10,
+              fontFamily: "Metro-Thin",
+              textDecorationLine: "underline",
+            }}
+          >
+            Already have an account?
+          </Text>
+        </TouchableOpacity>
       </View>
 
-      <View style={{
-        flexDirection: 'row',
-        justifyContent: 'center',
-        marginBottom: 20,
-      }}>
-        <ButtonComponent backgroundColor='black' text='Sign Up' />
-      </View>
+      <TouchableOpacity
+        style={{
+          backgroundColor: "black",
+          width: "100%",
+          height: 50,
+          borderRadius: 10,
+          justifyContent: "center",
+          alignItems: "center",
+          marginBottom: 20,
+        }}
+      >
+        <Text
+          style={{ color: "white", fontSize: 20, fontWeight: "bold", fontFamily: "Metro-Semibold" }}
+        >
+          Sign Up
+        </Text>
+      </TouchableOpacity>
 
-      <Text style={{
-        color: 'black',
-        marginBottom: 8,
-        fontFamily: 'Metro-Thin',
-      }}>Sign up with another account
+      <Text style={{ color: "black", marginBottom: 8, fontFamily: "Metro-Thin" }}>
+        Sign up with another account
       </Text>
 
-      <View style={{
-        flexDirection: 'row',
-        justifyContent: 'center',
-        marginBottom: 40,
-      }}>
-        <AnotherLoginOption logo={require('../assets/Google.png')} />
-        <AnotherLoginOption logo={require('../assets/Facebook.png')} />
+      <View style={{ flexDirection: "row", justifyContent: "center", marginBottom: 40 }}>
+        <AnotherLoginOption logo={require("../assets/Google.png")} />
+        <AnotherLoginOption logo={require("../assets/Facebook.png")} />
       </View>
     </View>
   );
 };
 
-const ButtonComponent = ({ backgroundColor, text }) => {
-  return (
-    <TouchableOpacity style={{
-      backgroundColor: backgroundColor,
-      width: 300,
-      height: 50,
-      borderRadius: 10,
-      justifyContent: 'center',
-      alignItems: 'center',
-      marginHorizontal: 10,
-    }}>
-      <Text style={{
-        color: 'white',
-        fontSize: 20,
-        fontWeight: 'bold',
-        fontFamily: 'Metro-Semibold',
-      }}>
-        {text}
-      </Text>
-    </TouchableOpacity>
-  );
-};
-
 const FormInput = ({ placeholder, secureTextEntry, keyboardType }) => {
   return (
-    <View style={{
-      alignItems: 'center',
-      marginBottom: 10,
-    }}>
+    <View style={{ alignItems: "center", marginBottom: 10, width: "100%" }}>
       <TextInput
         style={{
-          width: 300,
+          width: "100%",
           height: 40,
-          borderColor: 'black',
+          borderColor: "black",
           borderWidth: 1,
           borderRadius: 5,
           padding: 10,
-          color: 'white',
-          fontFamily: 'Metro-Thin',
+          color: "black",
+          fontFamily: "Metro-Thin",
         }}
         placeholder={placeholder}
         placeholderTextColor="gray"
@@ -138,7 +130,7 @@ const AnotherLoginOption = ({ logo }) => {
   return (
     <Image
       source={logo}
-      style={{ width: 50, height: 50, marginHorizontal: 20, resizeMode: 'contain', }}
+      style={{ width: 50, height: 50, marginHorizontal: 10, resizeMode: "contain" }}
     />
   );
 };

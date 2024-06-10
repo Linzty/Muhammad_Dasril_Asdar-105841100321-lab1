@@ -1,29 +1,40 @@
-import { View, Text } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import React from 'react';
-import LoginPage from './Page/LoginPage';
-import SignupPage from './Page/SignupPage';
-import ForgotPage from './Page/ForgotPage';
-import { Button } from 'react-native';
+import { View, Text, Image, TouchableOpacity } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import React from "react";
+import SignupPage from "./Page/SignupPage";
+import LoginPage from "./Page/LoginPage";
+import ForgotPage from "./Page/ForgotPage";
 
-function HomeScreen ({navigation}) {
+function HomeScreen({ navigation }) {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Button
-        title = "Login"
-        onPress={() => navigation.navigate('Login')}
-      />
-      <Button
-        title = "Sign Up"
-        onPress={() => navigation.navigate('SignUp')}
-      />
-      <Button
-        title = "Forgot Password"
-        onPress={() => navigation.navigate('Forgot')}
-      />
-    </View>
-    
+    <TouchableOpacity
+      style={{
+        flex: 1,
+        backgroundColor: "orange",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+      onPress={() => navigation.navigate("Sign Up")}
+      activeOpacity={1}
+    >
+      <View style={{ alignItems: "center", marginBottom: 20 }}>
+        <Image
+          source={require("./assets/logo.png")}
+          style={{ width: 300, height: 200 }}
+          resizeMode="contain"
+        />
+      </View>
+      <Text
+        style={{
+          fontSize: 20,
+          color: "black",
+          textDecorationLine: "underline",
+        }}
+      >
+        Tap to enter
+      </Text>
+    </TouchableOpacity>
   );
 }
 
@@ -33,11 +44,26 @@ function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Login" component={LoginPage}/>
-        <Stack.Screen name="SignUp" component={SignupPage}/>
-        <Stack.Screen name="Forgot" component={ForgotPage}/>
-
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Sign Up"
+          component={SignupPage}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Login"
+          component={LoginPage}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Forgot"
+          component={ForgotPage}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
