@@ -2,13 +2,13 @@ import React from 'react';
 import { View, Text, TextInput, Image, TouchableOpacity } from 'react-native';
 import { useFonts } from 'expo-font';
 
-const App = () => {
+const SignupPage = () => {
   const [fontsLoaded] = useFonts({
-    'Metro-Bold': require('./assets/fonts/Metropolis-Bold.otf'),
-    'Metro-Thin': require('./assets/fonts/Metropolis-Thin.otf'),
-    'Metro-Medium': require('./assets/fonts/Metropolis-Medium.otf'),
-    'Metro-Semibold': require('./assets/fonts/Metropolis-SemiBold.otf'),
-    'Metro-Black': require('./assets/fonts/Metropolis-Black.otf'),
+    'Metro-Bold': require('../assets/fonts/Metropolis-Bold.otf'),
+    'Metro-Thin': require('../assets/fonts/Metropolis-Thin.otf'),
+    'Metro-Medium': require('../assets/fonts/Metropolis-Medium.otf'),
+    'Metro-Semibold': require('../assets/fonts/Metropolis-SemiBold.otf'),
+    'Metro-Black': require('../assets/fonts/Metropolis-Black.otf'),
   });
 
   if (!fontsLoaded) return <View><Text>Font tidak ditemukan!</Text></View>;
@@ -20,7 +20,7 @@ const App = () => {
       alignItems: 'center',
       backgroundColor: 'orange',
     }}>
-      <Image source={require('./assets/logo.png')} style={{
+      <Image source={require('../assets/logo.png')} style={{
         position: 'absolute',
         alignItems: 'center',
         justifyContent: 'center',
@@ -34,30 +34,28 @@ const App = () => {
         fontSize: 32,
         fontWeight: 'bold',
         marginBottom: 30,
+        marginTop: 20,
         color: 'black',
         textAlign: 'left',
-        width: '90%',
+        width: '80%',
         fontFamily: 'Metro-Black',
       }}>
-        Forgot Password
+        Sign Up
       </Text>
 
       <View style={{
         justifyContent: 'center',
         marginBottom: 50,
       }}>
-        <Text style={{
-          fontSize: 12,
-          color: 'black',
-          textAlign: 'left',
-          
-          bottom: 10,
-          fontFamily: 'Metro-Thin',
-        }}>
-          Please, enter your email address.{"\n"}
-          You will receive a link to create a new password via email.
-        </Text>
+        <FormInput placeholder="Full Name" />
         <FormInput placeholder="Email" keyboardType="email-address" />
+        <FormInput placeholder="Password" secureTextEntry />
+        <Text style={{
+          color: 'black',
+          alignSelf: 'flex-end',
+          marginRight: 10,
+          fontFamily: 'Metro-Thin',
+        }}>Already have an account?</Text>
       </View>
 
       <View style={{
@@ -65,7 +63,23 @@ const App = () => {
         justifyContent: 'center',
         marginBottom: 20,
       }}>
-        <ButtonComponent backgroundColor='black' text='Send' />
+        <ButtonComponent backgroundColor='black' text='Sign Up' />
+      </View>
+
+      <Text style={{
+        color: 'black',
+        marginBottom: 8,
+        fontFamily: 'Metro-Thin',
+      }}>Sign up with another account
+      </Text>
+
+      <View style={{
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginBottom: 40,
+      }}>
+        <AnotherLoginOption logo={require('../assets/Google.png')} />
+        <AnotherLoginOption logo={require('../assets/Facebook.png')} />
       </View>
     </View>
   );
@@ -120,4 +134,13 @@ const FormInput = ({ placeholder, secureTextEntry, keyboardType }) => {
   );
 };
 
-export default App;
+const AnotherLoginOption = ({ logo }) => {
+  return (
+    <Image
+      source={logo}
+      style={{ width: 50, height: 50, marginHorizontal: 20, resizeMode: 'contain', }}
+    />
+  );
+};
+
+export default SignupPage;

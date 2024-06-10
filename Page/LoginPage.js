@@ -2,13 +2,13 @@ import React from 'react';
 import { View, Text, TextInput, Image, TouchableOpacity } from 'react-native';
 import { useFonts } from 'expo-font';
 
-const App = () => {
+const LoginPage = () => {
   const [fontsLoaded] = useFonts({
-    'Metro-Bold': require('./assets/fonts/Metropolis-Bold.otf'),
-    'Metro-Thin': require('./assets/fonts/Metropolis-Thin.otf'),
-    'Metro-Medium': require('./assets/fonts/Metropolis-Medium.otf'),
-    'Metro-Semibold': require('./assets/fonts/Metropolis-SemiBold.otf'),
-    'Metro-Black': require('./assets/fonts/Metropolis-Black.otf'),
+    'Metro-Bold': require('../assets/fonts/Metropolis-Bold.otf'),
+    'Metro-Thin': require('../assets/fonts/Metropolis-Thin.otf'),
+    'Metro-Medium': require('../assets/fonts/Metropolis-Medium.otf'),
+    'Metro-Semibold': require('../assets/fonts/Metropolis-SemiBold.otf'),
+    'Metro-Black': require('../assets/fonts/Metropolis-Black.otf'),
   });
 
   if (!fontsLoaded) return <View><Text>Font tidak ditemukan!</Text></View>;
@@ -20,7 +20,7 @@ const App = () => {
       alignItems: 'center',
       backgroundColor: 'orange',
     }}>
-      <Image source={require('./assets/logo.png')} style={{
+      <Image source={require('../assets/logo.png')} style={{
         position: 'absolute',
         alignItems: 'center',
         justifyContent: 'center',
@@ -142,4 +142,4 @@ const AnotherLoginOption = ({ logo }) => {
   );
 };
 
-export default App;
+export default LoginPage;
