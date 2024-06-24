@@ -1,10 +1,15 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from "react";
+import { AntDesign } from '@expo/vector-icons';
 import SignupPage from "./Page/SignupPage";
 import LoginPage from "./Page/LoginPage";
 import ForgotPage from "./Page/ForgotPage";
+
+const Tab = createBottomTabNavigator();
+
 
 function HomeScreen({ navigation }) {
   return (
@@ -43,28 +48,40 @@ const Stack = createNativeStackNavigator();
 function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
+      <Tab.Navigator>
+        <Tab.Screen
           name="Home"
           component={HomeScreen}
-          options={{ headerShown: false }}
+          options={{ headerShown: false ,
+            tabBarLabel:({ focused,color })=>(<Text style={{color:focused?"orange":"gray"}}>Home</Text>),
+            tabBarIcon: ({ size }) => (
+            <AntDesign name="home" color={"orange"} size={size} />),}}
         />
-        <Stack.Screen
+        <Tab.Screen
           name="Sign Up"
           component={SignupPage}
-          options={{ headerShown: false }}
+          options={{ headerShown: false ,
+            tabBarLabel:({ focused,color })=>(<Text style={{color:focused?"orange":"gray"}}>Sign Up</Text>),
+            tabBarIcon: ({ size }) => (
+            <AntDesign name="adduser" color={"orange"} size={size} />),}}
         />
-        <Stack.Screen
+        <Tab.Screen
           name="Login"
           component={LoginPage}
-          options={{ headerShown: false }}
+          options={{ headerShown: false ,
+            tabBarLabel:({ focused,color })=>(<Text style={{color:focused?"orange":"gray"}}>Login</Text>),
+            tabBarIcon: ({ size }) => (
+            <AntDesign name="login" color={"orange"} size={size} />),}}
         />
-        <Stack.Screen
+        <Tab.Screen
           name="Forgot"
           component={ForgotPage}
-          options={{ headerShown: false }}
+          options={{ headerShown: false ,
+            tabBarLabel:({ focused,color })=>(<Text style={{color:focused?"orange":"gray"}}>Forgot</Text>),
+            tabBarIcon: ({ size,  }) => (
+            <AntDesign name="minuscircleo" color={"orange"} size={size} />),}}
         />
-      </Stack.Navigator>
+      </Tab.Navigator>
     </NavigationContainer>
   );
 }
