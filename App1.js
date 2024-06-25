@@ -1,58 +1,55 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context'; 
-import ButtonEx from './button1';
-import Title from './Title';
+import * as React from 'react';
+import { View, Text, Button, Image } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import LoginPage from './LoginPage';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-export default function App() {
+const Tab = createBottomTabNavigator();
+
+function MyTabs() {
   return (
-    <View style={styles.container}>
-      <Title />
-      <View style={styles.logoContainer}>
-        <Image source={require('./assets/Logo.png')} style={styles.logo} />
-      </View>
-      <ButtonComponent />
-      <StatusBar style="auto" />
+    <Tab.Navigator>
+      <Tab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          headerShown: false,
+          
+        }}
+      />
+      <Tab.Screen
+        name="Login"
+        component={LoginPage}
+        
+      />
+    </Tab.Navigator>
+  );
+}
+
+function HomeScreen({ navigation }) {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Home Screen</Text>
+      <Button
+        title="Go to Login"
+        onPress={() => navigation.navigate('Login')}
+      />
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'black',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  logoContainer: {
-    marginTop: 100,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  logo: {
-    width: 250,
-    height: 100,
-  },
-});
+const Stack = createNativeStackNavigator();
 
-const ButtonComponent = ({ backgroundColor, text }) => {
+function App() {
   return (
-    <View style={{
-      backgroundColor: backgroundColor,
-      width: 150,
-      height: 70,
-      borderRadius: 10,
-      marginLeft: 10
-    }}>
-      <Text style={{
-        color: 'white',
-        textAlign: 'center',
-        lineHeight: 70,
-        fontSize: 25,
-        fontWeight: 'bold',
-      }}>
-        {text}
-      </Text>
-    </View>
-  )
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={MyTabs} />
+        <Stack.Screen name="Login" component={LoginPage} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
 }
+
+export default App;

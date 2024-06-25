@@ -42,7 +42,7 @@ const ForgotPage = () => {
             width: width * 0.6,
             height: height * 0.2,
             resizeMode: "contain",
-            marginBottom: 100,
+            marginBottom: -20,
           }}
         />
       </View>
@@ -59,7 +59,6 @@ const ForgotPage = () => {
           style={{
             fontSize: 32,
             fontWeight: "bold",
-            marginTop: -200,
             marginBottom: 30,
             color: "black",
             textAlign: "left",

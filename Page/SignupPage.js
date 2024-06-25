@@ -1,6 +1,7 @@
 import React from "react";
-import { View, Text, TextInput, Image, TouchableOpacity, Dimensions } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, Dimensions, Image } from "react-native";
 import { useFonts } from "expo-font";
+import { AntDesign } from "@expo/vector-icons";
 
 const { width, height } = Dimensions.get("window");
 
@@ -96,8 +97,8 @@ const SignupPage = ({ navigation }) => {
       </Text>
 
       <View style={{ flexDirection: "row", justifyContent: "center", marginBottom: 40 }}>
-        <AnotherLoginOption logo={require("../assets/Google.png")} />
-        <AnotherLoginOption logo={require("../assets/Facebook.png")} />
+        <AnotherLoginOption name="google" />
+        <AnotherLoginOption name="facebook-square" />
       </View>
     </View>
   );
@@ -126,13 +127,8 @@ const FormInput = ({ placeholder, secureTextEntry, keyboardType }) => {
   );
 };
 
-const AnotherLoginOption = ({ logo }) => {
-  return (
-    <Image
-      source={logo}
-      style={{ width: 50, height: 50, marginHorizontal: 10, resizeMode: "contain" }}
-    />
-  );
+const AnotherLoginOption = ({ name }) => {
+  return <AntDesign name={name} size={50} color="black" style={{ marginHorizontal: 10 }} />;
 };
 
 export default SignupPage;

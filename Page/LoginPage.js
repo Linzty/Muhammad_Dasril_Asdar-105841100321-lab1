@@ -1,6 +1,8 @@
 import React from "react";
 import { View, Text, TextInput, Image, TouchableOpacity, Dimensions } from "react-native";
 import { useFonts } from "expo-font";
+import { AntDesign } from "@expo/vector-icons";
+
 
 const { width, height } = Dimensions.get("window");
 
@@ -78,27 +80,28 @@ const LoginPage = ({ navigation }) => {
       </View>
 
       <TouchableOpacity
-        style={{
-          backgroundColor: "black",
-          width: "100%",
-          height: 50,
-          borderRadius: 10,
-          justifyContent: "center",
-          alignItems: "center",
-          marginBottom: 20,
-        }}
-      >
-        <Text
-          style={{
-            color: "white",
-            fontSize: 20,
-            fontWeight: "bold",
-            fontFamily: "Metro-Semibold",
-          }}
-        >
-          Login
-        </Text>
-      </TouchableOpacity>
+  onPress={() => navigation.navigate("Main")}
+  style={{
+    backgroundColor: "black",
+    width: "100%",
+    height: 50,
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 20,
+  }}
+>
+  <Text
+    style={{
+      color: "white",
+      fontSize: 20,
+      fontWeight: "bold",
+      fontFamily: "Metro-Semibold",
+    }}
+  >
+    Login
+  </Text>
+</TouchableOpacity>
 
       <Text
         style={{
@@ -110,15 +113,9 @@ const LoginPage = ({ navigation }) => {
         Sign in with another account
       </Text>
 
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "center",
-          marginBottom: 40,
-        }}
-      >
-        <AnotherLoginOption logo={require("../assets/Google.png")} />
-        <AnotherLoginOption logo={require("../assets/Facebook.png")} />
+      <View style={{ flexDirection: "row", justifyContent: "center", marginBottom: 40 }}>
+        <AnotherLoginOption name="google" />
+        <AnotherLoginOption name="facebook-square" />
       </View>
     </View>
   );
@@ -180,8 +177,8 @@ const FormInput = ({ placeholder, secureTextEntry, keyboardType }) => {
   );
 };
 
-const AnotherLoginOption = ({ logo }) => {
-  return <Image source={logo} style={{ width: 50, height: 50, marginHorizontal: 10 }} />;
+const AnotherLoginOption = ({ name }) => {
+  return <AntDesign name={name} size={50} color="black" style={{ marginHorizontal: 10 }} />;
 };
 
 export default LoginPage;
