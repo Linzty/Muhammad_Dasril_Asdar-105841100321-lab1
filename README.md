@@ -1,4 +1,4 @@
-﻿<span style="color: orange;">Aplikasi NamaAplikasi</span>
+﻿<span style="color: orange;">Mclaren F1</span>
 
 Aplikasi ini merupakan aplikasi mobile menggunakan React Native untuk platform Android dan iOS.
 
