@@ -1,6 +1,6 @@
 ﻿# <span style="color:orange">McLaren F1</span>
 
-Aplikasi ini merupakan aplikasi mobile menggunakan React Native untuk platform Android dan iOS.
+Aplikasi ini merupakan aplikasi mobile menggunakan React Native untuk platform Android
 
 ## Fitur-fitur Utama
 
