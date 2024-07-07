@@ -1,4 +1,4 @@
-﻿# <font color="orange">McLaren F1</font>
+﻿# $${\color{red}Red}$$
 
 Aplikasi ini merupakan aplikasi mobile menggunakan React Native untuk platform Android
 
