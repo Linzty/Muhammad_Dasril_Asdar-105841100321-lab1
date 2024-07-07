@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, Dimensions, Image } from "react-native";
 import { useFonts } from "expo-font";
 import { AntDesign } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import Toast from "react-native-toast-message";
 
 const { width, height } = Dimensions.get("window");
 
@@ -13,6 +15,73 @@ const SignupPage = ({ navigation }) => {
     "Metro-Semibold": require("../assets/fonts/Metropolis-SemiBold.otf"),
     "Metro-Black": require("../assets/fonts/Metropolis-Black.otf"),
   });
+
+  const [formSignup, setForm] = useState({
+    fullName: "",
+    email: "",
+    password: "",
+  });
+
+  const onSubmit = async () => {
+    const { fullName, email, password } = formSignup;
+    if (!fullName || !email || !password) {
+      Toast.show({
+        type: 'error',
+        text1: 'Error',
+        text2: 'All fields are required!',
+      });
+      return;
+    }
+
+    if (!isValidEmail(email)) {
+      Toast.show({
+        type: 'error',
+        text1: 'Error',
+        text2: 'Please enter a valid email address!',
+      });
+      return;
+    }
+
+    try {
+      await AsyncStorage.setItem("userEmail", email);
+      await AsyncStorage.setItem("userPassword", password);
+
+      let countdown = 3;
+      Toast.show({
+        type: 'success',
+        text1: 'Success',
+        text2: `Redirect to login page in ${countdown} seconds...`,
+        autoHide: false,
+      });
+
+      const intervalId = setInterval(() => {
+        countdown -= 1;
+        if (countdown > 0) {
+          Toast.show({
+            type: 'success',
+            text1: 'Success',
+            text2: `Redirect to login page in ${countdown} seconds...`,
+            autoHide: false,
+          });
+        } else {
+          clearInterval(intervalId);
+          Toast.hide();
+          navigation.navigate("Login");
+        }
+      }, 1000);
+    } catch (error) {
+      console.log("Error saving user information:", error.message);
+      Toast.show({
+        type: 'error',
+        text1: 'Error',
+        text2: 'Failed to sign up. Please try again later.',
+      });
+    }
+  };
+
+  const isValidEmail = (email) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  };
 
   if (!fontsLoaded)
     return (
@@ -56,9 +125,23 @@ const SignupPage = ({ navigation }) => {
       </Text>
 
       <View style={{ width: "100%", marginBottom: 20 }}>
-        <FormInput placeholder="Full Name" />
-        <FormInput placeholder="Email" keyboardType="email-address" />
-        <FormInput placeholder="Password" secureTextEntry />
+        <FormInput 
+          placeholder="Full Name" 
+          value={formSignup.fullName}
+          onChangeText={(value) => setForm({ ...formSignup, fullName: value })}
+        />
+        <FormInput 
+          placeholder="Email" 
+          keyboardType="email-address" 
+          value={formSignup.email}
+          onChangeText={(value) => setForm({ ...formSignup, email: value })}
+        />
+        <FormInput 
+          placeholder="Password" 
+          secureTextEntry 
+          value={formSignup.password}
+          onChangeText={(value) => setForm({ ...formSignup, password: value })}
+        />
         <TouchableOpacity onPress={() => navigation.navigate("Login")}>
           <Text
             style={{
@@ -84,6 +167,7 @@ const SignupPage = ({ navigation }) => {
           alignItems: "center",
           marginBottom: 20,
         }}
+        onPress={onSubmit}
       >
         <Text
           style={{ color: "white", fontSize: 20, fontWeight: "bold", fontFamily: "Metro-Semibold" }}
@@ -100,11 +184,13 @@ const SignupPage = ({ navigation }) => {
         <AnotherLoginOption name="google" />
         <AnotherLoginOption name="facebook-square" />
       </View>
+
+      <Toast />
     </View>
   );
 };
 
-const FormInput = ({ placeholder, secureTextEntry, keyboardType }) => {
+const FormInput = ({ placeholder, secureTextEntry, keyboardType, value, onChangeText }) => {
   return (
     <View style={{ alignItems: "center", marginBottom: 10, width: "100%" }}>
       <TextInput
@@ -122,6 +208,8 @@ const FormInput = ({ placeholder, secureTextEntry, keyboardType }) => {
         placeholderTextColor="gray"
         secureTextEntry={secureTextEntry}
         keyboardType={keyboardType}
+        value={value}
+        onChangeText={onChangeText}
       />
     </View>
   );

@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, TextInput, Image, TouchableOpacity, Dimensions } from "react-native";
 import { useFonts } from "expo-font";
+import Toast from "react-native-toast-message";
 
 const { width, height } = Dimensions.get("window");
 
-const ForgotPage = () => {
+const ForgotPage = ({ navigation }) => {
   const [fontsLoaded] = useFonts({
     "Metro-Bold": require("../assets/fonts/Metropolis-Bold.otf"),
     "Metro-Thin": require("../assets/fonts/Metropolis-Thin.otf"),
@@ -12,6 +13,56 @@ const ForgotPage = () => {
     "Metro-Semibold": require("../assets/fonts/Metropolis-SemiBold.otf"),
     "Metro-Black": require("../assets/fonts/Metropolis-Black.otf"),
   });
+
+  const [email, setEmail] = useState("");
+
+  const onSubmit = () => {
+    if (!email) {
+      Toast.show({
+        type: 'error',
+        text1: 'Error',
+        text2: 'Email is required!',
+      });
+      return;
+    }
+
+    if (!isValidEmail(email)) {
+      Toast.show({
+        type: 'error',
+        text1: 'Error',
+        text2: 'Please enter a valid email address!',
+      });
+      return;
+    }
+
+    Toast.show({
+      type: 'info',
+      text1: 'Processing',
+      text2: 'Redirecting to login page in 3 seconds...',
+      autoHide: false,
+    });
+
+    let countdown = 3;
+    const interval = setInterval(() => {
+      countdown -= 1;
+      Toast.show({
+        type: 'success',
+        text1: 'Success',
+        text2: `Redirecting to login page in ${countdown} seconds...`,
+        autoHide: false,
+      });
+
+      if (countdown <= 0) {
+        clearInterval(interval);
+        Toast.hide();
+        navigation.navigate("Login");
+      }
+    }, 1000);
+  };
+
+  const isValidEmail = (email) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  };
 
   if (!fontsLoaded)
     return (
@@ -88,7 +139,12 @@ const ForgotPage = () => {
             Please, enter your email address.{"\n"}
             You will receive a link to create a new password via email.
           </Text>
-          <FormInput placeholder="Email" keyboardType="email-address" />
+          <FormInput 
+            placeholder="Email" 
+            keyboardType="email-address"
+            value={email}
+            onChangeText={setEmail}
+          />
         </View>
 
         <View
@@ -99,14 +155,16 @@ const ForgotPage = () => {
             width: "90%",
           }}
         >
-          <ButtonComponent backgroundColor="black" text="Send" />
+          <ButtonComponent backgroundColor="black" text="Send" onPress={onSubmit} />
         </View>
       </View>
+
+      <Toast />
     </View>
   );
 };
 
-const ButtonComponent = ({ backgroundColor, text }) => {
+const ButtonComponent = ({ backgroundColor, text, onPress }) => {
   return (
     <TouchableOpacity
       style={{
@@ -118,6 +176,7 @@ const ButtonComponent = ({ backgroundColor, text }) => {
         alignItems: "center",
         marginHorizontal: 10,
       }}
+      onPress={onPress}
     >
       <Text
         style={{
@@ -133,7 +192,7 @@ const ButtonComponent = ({ backgroundColor, text }) => {
   );
 };
 
-const FormInput = ({ placeholder, secureTextEntry, keyboardType }) => {
+const FormInput = ({ placeholder, secureTextEntry, keyboardType, value, onChangeText }) => {
   return (
     <View
       style={{
@@ -156,6 +215,8 @@ const FormInput = ({ placeholder, secureTextEntry, keyboardType }) => {
         placeholderTextColor="gray"
         secureTextEntry={secureTextEntry}
         keyboardType={keyboardType}
+        value={value}
+        onChangeText={onChangeText}
       />
     </View>
   );

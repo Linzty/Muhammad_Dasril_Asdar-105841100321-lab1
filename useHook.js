@@ -1,6 +1,6 @@
 import { Text, View, TextInput, Button } from "react-native";
 import React, { useState } from "react";
-const App = () => {
+const UseHook = () => {
    const [formLogin, setForm] = useState({
       username: "",
       email: "",
@@ -44,4 +44,4 @@ const App = () => {
       </View>
    );
 };
-export default App;
+export default UseHook;
