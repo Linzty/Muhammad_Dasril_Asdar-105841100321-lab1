@@ -45,6 +45,7 @@ const SignupPage = ({ navigation }) => {
     try {
       await AsyncStorage.setItem("userEmail", email);
       await AsyncStorage.setItem("userPassword", password);
+      await AsyncStorage.setItem("userName", fullName);
 
       let countdown = 3;
       Toast.show({

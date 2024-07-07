@@ -1,8 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
 import { useFonts } from "expo-font";
 
 const Profile = () => {
+  const [userName, setUserName] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+
+  useEffect(() => {
+    fetchUserData();
+  }, []);
+
+  const fetchUserData = async () => {
+    try {
+      const storedUserName = await AsyncStorage.getItem("userName");
+      const storedUserEmail = await AsyncStorage.getItem("userEmail");
+
+      if (storedUserName !== null) {
+        setUserName(storedUserName);
+      }
+
+      if (storedUserEmail !== null) {
+        setUserEmail(storedUserEmail);
+      }
+    } catch (error) {
+      console.log("Error retrieving user data:", error.message);
+    }
+  };
+
   const [fontsLoaded] = useFonts({
     "Metro-Bold": require("../assets/fonts/Metropolis-Bold.otf"),
     "Metro-Thin": require("../assets/fonts/Metropolis-Thin.otf"),
@@ -52,7 +77,7 @@ const Profile = () => {
                 fontFamily: "Metro-Bold",
               }}
             >
-              Ayrton Senna
+              {userName}
             </Text>
             <Text
               style={{
@@ -61,7 +86,7 @@ const Profile = () => {
                 fontFamily: "Metro-Thin",
               }}
             >
-              Ayrton.Senna@gmail.com
+              {userEmail}
             </Text>
           </View>
         </View>
