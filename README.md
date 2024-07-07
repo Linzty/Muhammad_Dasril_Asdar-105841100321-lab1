@@ -1,4 +1,4 @@
-﻿# $${\color{red}Red}$$
+﻿# $${\color{orange}Mclaren F1}$$
 
 Aplikasi ini merupakan aplikasi mobile menggunakan React Native untuk platform Android
 
