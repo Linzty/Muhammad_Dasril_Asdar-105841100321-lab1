@@ -1,4 +1,4 @@
-﻿<font color="orange">Mclaren F1</font>
+﻿# <span style="color:orange">McLaren F1</span>
 
 Aplikasi ini merupakan aplikasi mobile menggunakan React Native untuk platform Android dan iOS.
 
