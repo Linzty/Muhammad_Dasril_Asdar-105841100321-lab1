@@ -7,7 +7,7 @@ import HomeScreen from "./Page/HomeScreen";
 import LoginPage from "./Page/LoginPage";
 import SignupPage from "./Page/SignupPage";
 import Profile from "./Page/Profile";
-import Merch from "./Page/Merch";
+import Shop from "./Page/Shop";
 import Team from "./Page/Team";
 import ForgotPage from "./Page/ForgotPage";
 import { AntDesign } from "@expo/vector-icons";
@@ -34,12 +34,12 @@ function MainTabs() {
     }}
    />
    <Tab.Screen
-    name="Merch"
-    component={Merch}
+    name="Shop"
+    component={Shop}
     options={{
      headerShown: false,
      tabBarLabel: ({ focused }) => (
-      <Text style={{ color: focused ? "orange" : "gray" }}>Merch</Text>
+      <Text style={{ color: focused ? "orange" : "gray" }}>Shop</Text>
      ),
      tabBarIcon: ({ size, focused }) => (
       <AntDesign name="skin" color={focused ? "orange" : "gray"} size={size} />
