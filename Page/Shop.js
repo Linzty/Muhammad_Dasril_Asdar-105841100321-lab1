@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, ScrollView, Image, TouchableOpacity, Dimensions } from "react-native";
+import { View, Text, ScrollView, Image, TouchableOpacity, Dimensions, } from "react-native";
 import { useFonts } from "expo-font";
 
 const { width } = Dimensions.get("window");
@@ -22,12 +22,12 @@ const Shop = () => {
   }
 
   return (
-    <ScrollView style={{ flex: 1, backgroundColor: "white" }}>
+    <ScrollView style={{ flex: 1, backgroundColor: "orange" }}>
       <View style={{ padding: 16 }}>
         {/* Header*/}
-        <View style={{ position: "relative", marginBottom: 20 }}>
-          <Image source={require("../assets/product/header.jpg")} style={{ width: "100%", height: 200, borderRadius: 10, resizeMode: "cover" }} />
-          <Text style={{ position: "absolute", bottom: 10, left: 10, color: "white", fontSize: 24, fontFamily: "Metro-Bold" }}>
+        <View style={{ position: "relative", marginBottom: 20,marginTop: 40 }}>
+          <Image source={require("../assets/product/header.jpg")} style={{ width: "100%", height: 200, borderRadius: 10, resizeMode: "cover",borderRadius: 10 , borderColor: "black", borderWidth: 2 }} />
+          <Text style={{ position: "absolute", bottom: 10, left: 10, color: "black", fontSize: 24, fontFamily: "Metro-Bold" }}>
             Formula 1 Collection
           </Text>
         </View>
@@ -36,6 +36,7 @@ const Shop = () => {
         <View style={{ marginBottom: 20 }}>
           <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
             <Text style={{ fontSize: 24, fontFamily: "Metro-Bold" }}>Sale</Text>
+            <View style={{ borderBottomWidth: 2, borderBottomColor: "black", flex: 1 , marginLeft:10, marginRight:10}} />
             <TouchableOpacity>
               <Text style={{ color: "red", fontFamily: "Metro-Medium" }}>View all</Text>
             </TouchableOpacity>
@@ -56,6 +57,7 @@ const Shop = () => {
         <View>
           <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
             <Text style={{ fontSize: 24, fontFamily: "Metro-Bold" }}>New</Text>
+            <View style={{ borderBottomWidth: 2, borderBottomColor: "black", flex: 1 , marginLeft:10, marginRight:10}} />
             <TouchableOpacity>
               <Text style={{ color: "red", fontFamily: "Metro-Medium" }}>View all</Text>
             </TouchableOpacity>
@@ -87,9 +89,9 @@ const ProductCard = ({ image, name, oldPrice, newPrice }) => {
 
   return (
     <View style={{ marginRight: 16 }}>
-      <Image source={image} style={{ width: 150, height: 200, borderRadius: 10 }} />
+      <Image source={image} style={{ width: 150, height: 200, borderRadius: 10 , borderColor: "black", borderWidth: 2 }} />
       {discount && <Text style={{ position: "absolute", top: 10, left: 10, backgroundColor: "red", color: "white", paddingHorizontal: 5 }}>{discount}</Text>}
-      <Text style={{ fontFamily: "Metro-Semibold", marginTop: 10 }}>{name}</Text>
+      <Text style={{ fontFamily: "Metro-Semibold", marginTop: 10, borderTopWidth: 1, borderTopColor: "black" }}>{name}</Text>
       {oldPrice && <Text style={{ textDecorationLine: "line-through", color: "grey" }}>{formatCurrency(oldPrice)}</Text>}
       {newPrice && <Text style={{ color: "red", fontFamily: "Metro-Bold" }}>{formatCurrency(newPrice)}</Text>}
     </View>
@@ -101,11 +103,12 @@ const ProductCardGrid = ({ image, name, oldPrice }) => {
 
   return (
     <View style={{ width: itemWidth, marginBottom: 16 }}>
-      <Image source={image} style={{ width: "100%", height: 200, borderRadius: 10 }} />
-      <Text style={{ fontFamily: "Metro-Semibold", marginTop: 10 }}>{name}</Text>
-      {oldPrice && <Text style={{ color: "grey" }}>{formatCurrency(oldPrice)}</Text>}
+      <Image source={image} style={{ width: "100%", height: 200, borderRadius: 10 , borderColor: "black", borderWidth: 2 ,}} />
+      <Text style={{ fontFamily: "Metro-Semibold", marginTop: 10 ,borderTopWidth: 2, borderTopColor: "black", }}>{name}</Text>
+      {oldPrice && <Text style={{ color: "white", }}>{formatCurrency(oldPrice)}</Text>}
     </View>
   );
 };
+
 
 export default Shop;
