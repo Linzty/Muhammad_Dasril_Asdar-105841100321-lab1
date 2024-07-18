@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
+import { View, Text, Image, TouchableOpacity, ScrollView, Dimensions } from "react-native";
 import { useFonts } from "expo-font";
+
+const { width } = Dimensions.get("window");
 
 const Profile = () => {
   const [userName, setUserName] = useState("");
-  const [userEmail, setUserEmail] = useState("");
+  const [nim, setNim] = useState("");
 
   useEffect(() => {
     fetchUserData();
@@ -14,14 +16,14 @@ const Profile = () => {
   const fetchUserData = async () => {
     try {
       const storedUserName = await AsyncStorage.getItem("userName");
-      const storedUserEmail = await AsyncStorage.getItem("userEmail");
+      const storedNim = await AsyncStorage.getItem("userNim");
 
       if (storedUserName !== null) {
         setUserName(storedUserName);
       }
 
-      if (storedUserEmail !== null) {
-        setUserEmail(storedUserEmail);
+      if (storedNim !== null) {
+        setNim(storedNim);
       }
     } catch (error) {
       console.log("Error retrieving user data:", error.message);
@@ -66,13 +68,13 @@ const Profile = () => {
           }}
         >
           <Image
-            source={require("../assets/Senna.jpg")}
+            source={{ uri: `https://simakad.unismuh.ac.id/upload/mahasiswa/${nim}.jpg` }}
             style={{ width: 80, height: 80, borderRadius: 40, marginRight: 20 }}
           />
           <View>
             <Text
               style={{
-                fontSize: 20,
+                fontSize: width * 0.05,
                 fontWeight: "bold",
                 fontFamily: "Metro-Bold",
               }}
@@ -86,7 +88,7 @@ const Profile = () => {
                 fontFamily: "Metro-Thin",
               }}
             >
-              {userEmail}
+              {nim}
             </Text>
           </View>
         </View>

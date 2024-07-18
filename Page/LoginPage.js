@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, Dimensions, Image } from "react-native";
 import { useFonts } from "expo-font";
 import { AntDesign } from "@expo/vector-icons";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import Toast from "react-native-toast-message";
+import axios from 'axios';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const { width, height } = Dimensions.get("window");
 
@@ -17,13 +18,13 @@ const LoginPage = ({ navigation }) => {
   });
 
   const [formLogin, setFormLogin] = useState({
-    email: "",
+    nim: "",
     password: "",
   });
 
-  const onSubmit = async () => {
-    const { email, password } = formLogin;
-    if (!email || !password) {
+  const onSubmit = () => {
+    const { nim, password } = formLogin;
+    if (!nim || !password) {
       Toast.show({
         type: 'error',
         text1: 'Error',
@@ -32,23 +33,18 @@ const LoginPage = ({ navigation }) => {
       return;
     }
 
-    if (!isValidEmail(email)) {
-      Toast.show({
-        type: 'error',
-        text1: 'Error',
-        text2: 'Please enter a valid email address!',
-      });
-      return;
-    }
+    axios.post('https://api.beasiswa.unismuh.ac.id/api/login', {
+      username: nim,
+      password: password
+    })
+    .then(async (response) => {
+      if (response.status === 200) {
+        await AsyncStorage.setItem("userName", response.data.data.nama);
+        await AsyncStorage.setItem("userNim", nim);
 
-    try {
-      const storedEmail = await AsyncStorage.getItem("userEmail");
-      const storedPassword = await AsyncStorage.getItem("userPassword");
-
-      if (email === storedEmail && password === storedPassword) {
         Toast.show({
-          type: 'info',
-          text1: 'Processing',
+          type: 'success',
+          text1: 'Success',
           text2: 'Logging in...',
           autoHide: false,
         });
@@ -61,21 +57,18 @@ const LoginPage = ({ navigation }) => {
         Toast.show({
           type: 'error',
           text1: 'Error',
-          text2: 'Invalid email or password!',
+          text2: 'Invalid NIM or password!',
         });
       }
-    } catch (error) {
-      console.log("Error retrieving user information:", error.message);
+    })
+    .catch(error => {
+      console.log("Error during login:", error.message);
       Toast.show({
         type: 'error',
         text1: 'Error',
         text2: 'Failed to log in. Please try again later.',
       });
-    }
-  };
-
-  const isValidEmail = (email) => {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    });
   };
 
   if (!fontsLoaded)
@@ -121,10 +114,10 @@ const LoginPage = ({ navigation }) => {
 
       <View style={{ width: "100%", marginBottom: 20 }}>
         <FormInput 
-          placeholder="Email" 
-          keyboardType="email-address" 
-          value={formLogin.email}
-          onChangeText={(value) => setFormLogin({ ...formLogin, email: value })}
+          placeholder="NIM" 
+          keyboardType="numeric" 
+          value={formLogin.nim}
+          onChangeText={(value) => setFormLogin({ ...formLogin, nim: value })}
         />
         <FormInput 
           placeholder="Password" 

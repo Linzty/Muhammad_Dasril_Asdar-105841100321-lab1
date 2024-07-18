@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TouchableOpacity, Image } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { View, Text, TouchableOpacity, Image,  } from "react-native";
 import Toast from "react-native-toast-message";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const HomeScreen = ({ navigation }) => {
   const [userName, setUserName] = useState("");
@@ -12,9 +12,9 @@ const HomeScreen = ({ navigation }) => {
 
   const fetchUserName = async () => {
     try {
-      const userName = await AsyncStorage.getItem("userName");
-      if (userName !== null) {
-        setUserName(userName);
+      const storedUserName = await AsyncStorage.getItem("userName");
+      if (storedUserName !== null) {
+        setUserName(storedUserName);
       }
     } catch (error) {
       console.log("Error retrieving user name:", error.message);
@@ -22,15 +22,6 @@ const HomeScreen = ({ navigation }) => {
   };
 
   useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      Toast.show({
-        type: 'success',
-        text1: 'Welcome',
-        text2: `Welcome, ${userName}!`,
-      });
-    }, 3000);
-
-    return () => clearTimeout(timeoutId);
   }, [userName]);
 
   return (
@@ -51,8 +42,8 @@ const HomeScreen = ({ navigation }) => {
         }}
         resizeMode="contain"
       />
-      <Text style={{ fontSize: 24, fontWeight: "bold", marginBottom: 10 }}>
-        Welcome, {userName}
+      <Text style={{ fontSize: 24, fontWeight: "bold", marginBottom: 10, textAlign: 'center' }}>
+        Welcome{"\n"}{userName}
       </Text>
       <TouchableOpacity
         onPress={() => navigation.navigate("Profile")}
@@ -73,6 +64,7 @@ const HomeScreen = ({ navigation }) => {
           Go to Profile
         </Text>
       </TouchableOpacity>
+      <Toast />
     </View>
   );
 };

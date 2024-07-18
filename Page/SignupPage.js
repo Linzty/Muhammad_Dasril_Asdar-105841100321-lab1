@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, Dimensions, Image } from "react-native";
 import { useFonts } from "expo-font";
 import { AntDesign } from "@expo/vector-icons";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import Toast from "react-native-toast-message";
+import axios from 'axios';
 
 const { width, height } = Dimensions.get("window");
 
@@ -17,14 +17,13 @@ const SignupPage = ({ navigation }) => {
   });
 
   const [formSignup, setForm] = useState({
-    fullName: "",
-    email: "",
+    nim: "",
     password: "",
   });
 
-  const onSubmit = async () => {
-    const { fullName, email, password } = formSignup;
-    if (!fullName || !email || !password) {
+  const onSubmit = () => {
+    const { nim, password } = formSignup;
+    if (!nim || !password) {
       Toast.show({
         type: 'error',
         text1: 'Error',
@@ -33,55 +32,51 @@ const SignupPage = ({ navigation }) => {
       return;
     }
 
-    if (!isValidEmail(email)) {
-      Toast.show({
-        type: 'error',
-        text1: 'Error',
-        text2: 'Please enter a valid email address!',
-      });
-      return;
-    }
+    axios.post('https://api.beasiswa.unismuh.ac.id/api/signup', {
+      username: nim,
+      password: password
+    })
+    .then(response => {
+      if (response.status === 200) {
+        let countdown = 3;
+        Toast.show({
+          type: 'success',
+          text1: 'Success',
+          text2: `Redirecting to login page in ${countdown} seconds...`,
+          autoHide: false,
+        });
 
-    try {
-      await AsyncStorage.setItem("userEmail", email);
-      await AsyncStorage.setItem("userPassword", password);
-      await AsyncStorage.setItem("userName", fullName);
-
-      let countdown = 3;
-      Toast.show({
-        type: 'success',
-        text1: 'Success',
-        text2: `Redirect to login page in ${countdown} seconds...`,
-        autoHide: false,
-      });
-
-      const intervalId = setInterval(() => {
-        countdown -= 1;
-        if (countdown > 0) {
-          Toast.show({
-            type: 'success',
-            text1: 'Success',
-            text2: `Redirect to login page in ${countdown} seconds...`,
-            autoHide: false,
-          });
-        } else {
-          clearInterval(intervalId);
-          Toast.hide();
-          navigation.navigate("Login");
-        }
-      }, 1000);
-    } catch (error) {
-      console.log("Error saving user information:", error.message);
+        const intervalId = setInterval(() => {
+          countdown -= 1;
+          if (countdown > 0) {
+            Toast.show({
+              type: 'success',
+              text1: 'Success',
+              text2: `Redirecting to login page in ${countdown} seconds...`,
+              autoHide: false,
+            });
+          } else {
+            clearInterval(intervalId);
+            Toast.hide();
+            navigation.navigate("Login");
+          }
+        }, 1000);
+      } else {
+        Toast.show({
+          type: 'error',
+          text1: 'Error',
+          text2: 'Failed to sign up. Please try again later.',
+        });
+      }
+    })
+    .catch(error => {
+      console.log("Error during signup:", error.message);
       Toast.show({
         type: 'error',
         text1: 'Error',
         text2: 'Failed to sign up. Please try again later.',
       });
-    }
-  };
-
-  const isValidEmail = (email) => {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    });
   };
 
   if (!fontsLoaded)
@@ -127,15 +122,10 @@ const SignupPage = ({ navigation }) => {
 
       <View style={{ width: "100%", marginBottom: 20 }}>
         <FormInput 
-          placeholder="Full Name" 
-          value={formSignup.fullName}
-          onChangeText={(value) => setForm({ ...formSignup, fullName: value })}
-        />
-        <FormInput 
-          placeholder="Email" 
-          keyboardType="email-address" 
-          value={formSignup.email}
-          onChangeText={(value) => setForm({ ...formSignup, email: value })}
+          placeholder="NIM" 
+          keyboardType="numeric" 
+          value={formSignup.nim}
+          onChangeText={(value) => setForm({ ...formSignup, nim: value })}
         />
         <FormInput 
           placeholder="Password" 
